@@ -1,0 +1,50 @@
+schema: draft-07
+name: gcp-subnetwork
+description: GCP Subnetwork includes best-practice GCP reference architecture for networks, IAM management, and observability integrations.
+ref: github.com/massdriver-cloud/gcp-subnetwork
+access: public
+type: bundle
+
+steps:
+  - path: src
+    provisioner: terraform
+
+params:
+  examples:
+    - __name: Development
+      cidr: 10.0.0.0/22
+      gcp_region: us-west2
+    - __name: Production
+      cidr: 10.0.0.0/16
+      gcp_region: us-west2
+  required:
+    - cidr
+    - gcp_region
+  properties:
+    cidr:
+      $ref: https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/cidr.json
+      default: "10.0.0.0/16"
+    gcp_region:
+      $ref: https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/gcp-region.json
+
+connections:
+  required:
+    - gcp_authentication
+    - gcp_global_network
+  properties:
+    gcp_authentication:
+      $ref: massdriver/gcp-service-account
+    gcp_global_network:
+      $ref: massdriver/gcp-global-network
+
+artifacts:
+  required:
+    - subnetwork
+  properties:
+    subnetwork:
+      $ref: massdriver/gcp-subnetwork
+
+ui:
+  ui:order:
+    - gcp_region
+    - cidr
