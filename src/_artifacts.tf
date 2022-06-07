@@ -12,9 +12,6 @@ resource "massdriver_artifact" "subnetwork" {
           cidr                   = google_compute_subnetwork.main.ip_cidr_range
           gcp_global_network_grn = var.gcp_global_network.data.grn
         }
-        observability = {
-          alarm_notification_channel_grn = google_monitoring_notification_channel.massdriver_alarms.id
-        }
       }
       specs = {
         gcp = {
