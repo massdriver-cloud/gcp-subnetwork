@@ -22,6 +22,7 @@ params:
     - gcp_region
   properties:
     cidr:
+      title: CIDR
       $ref: https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/cidr.json
       default: "10.0.0.0/16"
     gcp_region:
