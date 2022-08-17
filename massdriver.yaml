@@ -45,3 +45,6 @@ ui:
   ui:order:
     - gcp_region
     - cidr
+  gcp_region:
+    ui:field: supportedCloudLocationsDropdown
+    cloudService: gcp
