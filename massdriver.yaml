@@ -19,10 +19,13 @@ params:
   properties:
     cidr:
       title: CIDR
+      description: CIDR range for the subnetwork.
       $ref: https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/cidr.json
       default: "10.0.0.0/16"
     gcp_region:
       $ref: https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/gcp-region.json
+      title: Region
+      description: GCP region to create the subnetwork in.
 
 connections:
   required:
@@ -45,6 +48,7 @@ ui:
   ui:order:
     - gcp_region
     - cidr
+    - "*"
   gcp_region:
     ui:field: supportedCloudLocationsDropdown
     cloudService: gcp
