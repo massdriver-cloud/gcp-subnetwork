@@ -49,7 +49,7 @@ Form input parameters for configuring a bundle for deployment.
 <!-- PARAMS:START -->
 ## Properties
 
-- **`cidr`** *(string)*: Default: `10.0.0.0/16`.
+- **`cidr`** *(string)*: CIDR range for the subnetwork. Default: `10.0.0.0/16`.
 
   Examples:
   ```json
@@ -60,7 +60,7 @@ Form input parameters for configuring a bundle for deployment.
   "192.24.12.0/22"
   ```
 
-- **`gcp_region`** *(string)*: GCP region. Must be one of: `['us-east1', 'us-east4', 'us-west1', 'us-west2', 'us-west3', 'us-west4', 'us-central1']`.
+- **`gcp_region`** *(string)*: GCP region to create the subnetwork in. Must be one of: `['us-east1', 'us-east4', 'us-west1', 'us-west2', 'us-west3', 'us-west4', 'us-central1']`.
 
   Examples:
   ```json
