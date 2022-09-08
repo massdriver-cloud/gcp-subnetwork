@@ -1,7 +1,7 @@
 schema: draft-07
 name: gcp-subnetwork
 description: GCP Subnetwork includes best-practice GCP reference architecture for networks, IAM management, and observability integrations.
-ref: github.com/massdriver-cloud/gcp-subnetwork
+source_url: github.com/massdriver-cloud/gcp-subnetwork
 access: public
 type: bundle
 
