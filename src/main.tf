@@ -4,7 +4,7 @@ resource "google_compute_subnetwork" "main" {
   region                     = var.gcp_region
   network                    = var.gcp_global_network.data.grn
   private_ip_google_access   = true
-  private_ipv6_google_access = true
+  private_ipv6_google_access = "INTERNAL"
   # On for compliance, might make configurable with "advanced config"
   log_config {
     aggregation_interval = "INTERVAL_1_MIN"
