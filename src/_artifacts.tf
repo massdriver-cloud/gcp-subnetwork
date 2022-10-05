@@ -10,6 +10,7 @@ resource "massdriver_artifact" "subnetwork" {
           grn                    = google_compute_subnetwork.main.id
           cidr                   = google_compute_subnetwork.main.ip_cidr_range
           gcp_global_network_grn = var.gcp_global_network.data.grn
+          vpc_access_connector   = google_vpc_access_connector.shared.id
         }
       }
       specs = {
