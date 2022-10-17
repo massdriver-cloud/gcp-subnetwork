@@ -22,10 +22,12 @@ params:
       title: CIDR
       description: CIDR range for the subnetwork.
       default: "10.0.0.0/16"
+      $md.immutable: true
     gcp_region:
       $ref: https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/gcp-region.json
       title: Region
       description: GCP region to create the subnetwork in.
+      $md.immutable: true
 
 connections:
   required:
