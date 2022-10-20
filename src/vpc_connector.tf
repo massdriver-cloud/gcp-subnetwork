@@ -47,7 +47,7 @@ locals {
   }
 
   name_max_length = 25
-  safe_name       = substr(var.md_metadata.name_prefix, 0, local.name_max_length)
+  safe_name       = trimsuffix(substr(var.md_metadata.name_prefix, 0, local.name_max_length), "-")
 }
 
 # cost per month
