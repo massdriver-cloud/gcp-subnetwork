@@ -47,8 +47,7 @@ locals {
   }
 
   name_max_length = 25
-  suffix_parts    = join("-", slice(split("-", var.md_metadata.name_prefix), 2, 4))
-  safe_name       = substr(local.suffix_parts, 0, local.name_max_length)
+  safe_name       = substr(var.md_metadata.name_prefix, 0, local.name_max_length)
 }
 
 # cost per month
