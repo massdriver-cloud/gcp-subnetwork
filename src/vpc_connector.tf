@@ -45,14 +45,19 @@ locals {
     us-west3                = "10.252.0.16/28"
     us-west4                = "10.252.0.32/28"
   }
+
+  name_max_length = 25
+  suffix_parts    = join("-", slice(split("-", var.md_metadata.name_prefix), 2, 4))
+  safe_name       = substr(local.suffix_parts, 0, local.name_max_length)
 }
 
 # cost per month
 #     f1-micro  | e2-micro
 # min $13.29    | $14.69
 resource "google_vpc_access_connector" "shared" {
-  provider      = google-beta
-  name          = var.md_metadata.name_prefix
+  provider = google-beta
+  # max 25 characters
+  name          = local.safe_name
   region        = var.gcp_region
   ip_cidr_range = local.ranges[var.gcp_region]
   # in Mbps
