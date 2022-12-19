@@ -2,7 +2,7 @@
 resource "massdriver_artifact" "subnetwork" {
   field                = "subnetwork"
   provider_resource_id = google_compute_subnetwork.main.id
-  name                 = "GCP Subnetwork ${var.md_metadata.name_prefix} (${google_compute_subnetwork.main.id}) ${timestamp()}"
+  name                 = "${google_compute_subnetwork.main.region} - ${var.md_metadata.name_prefix}"
   artifact = jsonencode(
     {
       data = {
