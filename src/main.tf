@@ -1,6 +1,6 @@
 resource "google_compute_subnetwork" "main" {
   name                     = var.md_metadata.name_prefix
-  ip_cidr_range            = var.cidr
+  ip_cidr_range            = try(local.cidr, var.cidr)
   region                   = var.gcp_region
   network                  = var.gcp_global_network.data.grn
   private_ip_google_access = true
