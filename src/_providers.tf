@@ -21,10 +21,6 @@ terraform {
       source  = "massdriver-cloud/utility"
       version = "~> 0.0"
     }
-    # jq = {
-    #   source  = "massdriver-cloud/jq"
-    #   version = "~> 0.0"
-    # }
   }
 }
 
