@@ -6,11 +6,12 @@ locals {
 }
 
 data "google_compute_network" "global_network" {
+  count = var.network.automatic ? 1 : 0
   name  = element(split("/", var.gcp_global_network.data.grn), 4)
 }
 
 data "google_compute_subnetwork" "subnetworks" {
-  for_each  = toset(data.google_compute_network.global_network.subnetworks_self_links)
+  for_each  = var.network.automatic ? toset(data.google_compute_network.global_network[0].subnetworks_self_links) : toset([])
   self_link = each.value
 }
 
