@@ -9,10 +9,8 @@ params:
   examples:
     - __name: Development
       cidr: 10.0.0.0/22
-      gcp_region: us-west2
     - __name: Production
       cidr: 10.0.0.0/16
-      gcp_region: us-west2
     - __name: Wizard
       cidr: 10.0.0.0/22
       gcp_region: us-west2
