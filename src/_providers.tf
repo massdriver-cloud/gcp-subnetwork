@@ -17,6 +17,10 @@ terraform {
       source  = "hashicorp/null"
       version = "~> 3.0"
     }
+    utility = {
+      source  = "massdriver-cloud/utility"
+      version = "~> 0.0"
+    }
   }
 }
 

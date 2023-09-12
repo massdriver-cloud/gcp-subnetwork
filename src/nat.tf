@@ -1,4 +1,3 @@
-
 resource "google_compute_router_nat" "nat" {
   name   = "${var.md_metadata.name_prefix}-nat"
   router = google_compute_router.router.name
