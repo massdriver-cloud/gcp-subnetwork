@@ -29,23 +29,6 @@ Bundles are the basic building blocks of infrastructure, applications, and archi
 
 ## Bundle
 
-
-<!-- COMPLIANCE:START -->
-
-Security and compliance scanning of our bundles is performed using [Bridgecrew](https://www.bridgecrew.cloud/). Massdriver also offers security and compliance scanning of operational infrastructure configured and deployed using the platform.
-
-| Benchmark | Description |
-|--------|---------------|
-| [![Infrastructure Security](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/gcp-subnetwork/general)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Fgcp-subnetwork&benchmark=INFRASTRUCTURE+SECURITY) | Infrastructure Security Compliance |
-| [![CIS GCP](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/gcp-subnetwork/cis_gcp)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Fgcp-subnetwork&benchmark=CIS+GCP+V1.1) | Center for Internet Security, GCP Compliance |
-| [![PCI-DSS](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/gcp-subnetwork/pci)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Fgcp-subnetwork&benchmark=PCI-DSS+V3.2) | Payment Card Industry Data Security Standards Compliance |
-| [![NIST-800-53](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/gcp-subnetwork/nist)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Fgcp-subnetwork&benchmark=NIST-800-53) | National Institute of Standards and Technology Compliance |
-| [![ISO27001](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/gcp-subnetwork/iso)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Fgcp-subnetwork&benchmark=ISO27001) | Information Security Management System, ISO/IEC 27001 Compliance |
-| [![SOC2](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/gcp-subnetwork/soc2)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Fgcp-subnetwork&benchmark=SOC2)| Service Organization Control 2 Compliance |
-| [![HIPAA](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/gcp-subnetwork/hipaa)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Fgcp-subnetwork&benchmark=HIPAA) | Health Insurance Portability and Accountability Compliance |
-
-<!-- COMPLIANCE:END -->
-
 ### Params
 
 Form input parameters for configuring a bundle for deployment.
@@ -56,38 +39,59 @@ Form input parameters for configuring a bundle for deployment.
 <!-- PARAMS:START -->
 ## Properties
 
-- **`cidr`** *(string)*: CIDR range for the subnetwork. Default: `10.0.0.0/16`.
+- **`gcp_region`** *(string)*: GCP region to create the subnetwork in.
 
   Examples:
   ```json
-  "10.100.0.0/16"
+  "us-east1"
   ```
 
   ```json
-  "192.24.12.0/22"
+  "us-east4"
   ```
 
-- **`gcp_region`** *(string)*: GCP region to create the subnetwork in. Must be one of: `['us-east1', 'us-east4', 'us-west1', 'us-west2', 'us-west3', 'us-west4', 'us-central1']`.
+  ```json
+  "us-west1"
+  ```
 
-  Examples:
   ```json
   "us-west2"
   ```
 
+  ```json
+  "us-west3"
+  ```
+
+  ```json
+  "us-west4"
+  ```
+
+  ```json
+  "us-central1"
+  ```
+
+- **`network`** *(object)*
+  - **`automatic`** *(boolean)*: Enabling this will automatically select an available CIDR range for your database. Unchecking will require you to specify the CIDR. Default: `True`.
 ## Examples
 
   ```json
   {
       "__name": "Development",
-      "cidr": "10.0.0.0/22",
-      "gcp_region": "us-west2"
+      "cidr": "10.0.0.0/22"
   }
   ```
 
   ```json
   {
       "__name": "Production",
-      "cidr": "10.0.0.0/16",
+      "cidr": "10.0.0.0/16"
+  }
+  ```
+
+  ```json
+  {
+      "__name": "Wizard",
+      "cidr": "10.0.0.0/22",
       "gcp_region": "us-west2"
   }
   ```
@@ -171,18 +175,37 @@ Connections from other bundles that this bundle depends on.
   - **`specs`** *(object)*
     - **`gcp`** *(object)*: .
       - **`project`** *(string)*
-      - **`region`** *(string)*: GCP region. Must be one of: `['us-east1', 'us-east4', 'us-west1', 'us-west2', 'us-west3', 'us-west4', 'us-central1']`.
+      - **`region`** *(string)*: The GCP region to provision resources in.
 
         Examples:
+        ```json
+        "us-east1"
+        ```
+
+        ```json
+        "us-east4"
+        ```
+
+        ```json
+        "us-west1"
+        ```
+
         ```json
         "us-west2"
         ```
 
-      - **`resource`** *(string)*
-      - **`service`** *(string)*
-      - **`zone`** *(string)*: GCP Zone.
+        ```json
+        "us-west3"
+        ```
 
-        Examples:
+        ```json
+        "us-west4"
+        ```
+
+        ```json
+        "us-central1"
+        ```
+
 - **`gcp_global_network`** *(object)*: . Cannot contain additional properties.
   - **`data`** *(object)*
     - **`grn`** *(string)*: GCP Resource Name (GRN).
@@ -229,18 +252,37 @@ Connections from other bundles that this bundle depends on.
   - **`specs`** *(object)*
     - **`gcp`** *(object)*: .
       - **`project`** *(string)*
-      - **`region`** *(string)*: GCP region. Must be one of: `['us-east1', 'us-east4', 'us-west1', 'us-west2', 'us-west3', 'us-west4', 'us-central1']`.
+      - **`region`** *(string)*: The GCP region to provision resources in.
 
         Examples:
+        ```json
+        "us-east1"
+        ```
+
+        ```json
+        "us-east4"
+        ```
+
+        ```json
+        "us-west1"
+        ```
+
         ```json
         "us-west2"
         ```
 
-      - **`resource`** *(string)*
-      - **`service`** *(string)*
-      - **`zone`** *(string)*: GCP Zone.
+        ```json
+        "us-west3"
+        ```
 
-        Examples:
+        ```json
+        "us-west4"
+        ```
+
+        ```json
+        "us-central1"
+        ```
+
 <!-- CONNECTIONS:END -->
 
 </details>
@@ -323,21 +365,67 @@ Resources created by this bundle that can be connected to other bundles.
         "projects/my-project/locations/us-west2/clusters/my-gke-cluster"
         ```
 
+      - **`vpc_access_connector`** *(string)*: GCP Resource Name (GRN).
+
+        Examples:
+        ```json
+        "projects/my-project/global/networks/my-global-network"
+        ```
+
+        ```json
+        "projects/my-project/regions/us-west2/subnetworks/my-subnetwork"
+        ```
+
+        ```json
+        "projects/my-project/topics/my-pubsub-topic"
+        ```
+
+        ```json
+        "projects/my-project/subscriptions/my-pubsub-subscription"
+        ```
+
+        ```json
+        "projects/my-project/locations/us-west2/instances/my-redis-instance"
+        ```
+
+        ```json
+        "projects/my-project/locations/us-west2/clusters/my-gke-cluster"
+        ```
+
   - **`specs`** *(object)*
     - **`gcp`** *(object)*: .
       - **`project`** *(string)*
-      - **`region`** *(string)*: GCP region. Must be one of: `['us-east1', 'us-east4', 'us-west1', 'us-west2', 'us-west3', 'us-west4', 'us-central1']`.
+      - **`region`** *(string)*: The GCP region to provision resources in.
 
         Examples:
+        ```json
+        "us-east1"
+        ```
+
+        ```json
+        "us-east4"
+        ```
+
+        ```json
+        "us-west1"
+        ```
+
         ```json
         "us-west2"
         ```
 
-      - **`resource`** *(string)*
-      - **`service`** *(string)*
-      - **`zone`** *(string)*: GCP Zone.
+        ```json
+        "us-west3"
+        ```
 
-        Examples:
+        ```json
+        "us-west4"
+        ```
+
+        ```json
+        "us-central1"
+        ```
+
 <!-- ARTIFACTS:END -->
 
 </details>
