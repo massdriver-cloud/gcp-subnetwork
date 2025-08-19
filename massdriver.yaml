@@ -1,109 +1,111 @@
 schema: draft-07
 name: gcp-subnetwork
+version: 1.0.0
 description: GCP Subnetwork includes best-practice GCP reference architecture for networks, IAM management, and observability integrations.
-source_url: github.com/massdriver-cloud/gcp-subnetwork
-access: private #public
-type: bundle
-
+source_url: https://github.com/massdriver-cloud/gcp-subnetwork
+type: application
 params:
   examples:
-    - __name: Development
-      cidr: 10.0.0.0/22
-    - __name: Production
-      cidr: 10.0.0.0/16
-    - __name: Wizard
-      cidr: 10.0.0.0/22
-      gcp_region: us-west2
+  - __name: Development
+    cidr: 10.0.0.0/22
+  - __name: Production
+    cidr: 10.0.0.0/16
+  - __name: Wizard
+    cidr: 10.0.0.0/22
+    gcp_region: us-west2
   required:
-    - network
-    - gcp_region
+  - network
+  - gcp_region
   properties:
     gcp_region:
-      $ref: https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/gcp-region.json
+      "$ref": https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/gcp-region.json
       title: Region
       description: GCP region to create the subnetwork in.
-      $md.immutable: true
+      "$md.immutable": true
     network:
-        title: Network
-        type: object
-        required:
-          - automatic
-        properties:
-          automatic:
-            title: Automatic CIDR Selection
-            type: boolean
-            description: Enabling this will automatically select an available CIDR range for your database. Unchecking will require you to specify the CIDR.
-            default: true
-            $md.immutable: true
-        dependencies:
-          automatic:
-            oneOf:
-            - properties:
-                automatic:
-                  const: true
-                mask:
-                  title: Subnetwork Size
-                  type: integer
-                  description: Select the size of the subnetwork in IP addresses
-                  $md.immutable: true
-                  default: 16
-                  oneOf:
-                    - const: 16
-                      title: 65k IP Addresses
-                    - const: 17
-                      title: 32k IP Addresses
-                    - const: 18
-                      title: 16k IP Addresses
-                    - const: 19
-                      title: 8k IP Addresses
-                    - const: 20
-                      title: 4k IP Addresses
-                    - const: 21
-                      title: 2k IP Addresses
-                    - const: 22
-                      title: 1k IP Addresses
-                    - const: 23
-                      title: 512 IP Addresses
-                    - const: 24
-                      title: 256 IP Addresses
-              required:
-              - mask
-            - properties:
-                automatic:
-                  const: false
-                cidr:
-                  title: VNet CIDR Range
-                  type: string
-                  description: Enter a CIDR range to use for the virtual network
-                  $md.immutable: true
-                  pattern: ^(?:10\.(?:[0-9]|[0-9]{2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])|172\.(?:1[6-9]|2[0-9]|3[0-1])|192\.168)(?:\.(?:[0-9]|[0-9]{2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){2}\/([8-9]|1[0-9]|2[0-4])$
-                  message:
-                    pattern: "Range must be from private networking space (10.X.X.X, 172.16-31.X.X, 192.168.X.X). Mask must be between 8 and 24"
-              required:
-              - cidr
-
+      title: Network
+      type: object
+      required:
+      - automatic
+      properties:
+        automatic:
+          title: Automatic CIDR Selection
+          type: boolean
+          description: Enabling this will automatically select an available CIDR range for your database. Unchecking will require you to specify the CIDR.
+          default: true
+          "$md.immutable": true
+      dependencies:
+        automatic:
+          oneOf:
+          - properties:
+              automatic:
+                const: true
+              mask:
+                title: Subnetwork Size
+                type: integer
+                description: Select the size of the subnetwork in IP addresses
+                "$md.immutable": true
+                default: 16
+                oneOf:
+                - const: 16
+                  title: 65k IP Addresses
+                - const: 17
+                  title: 32k IP Addresses
+                - const: 18
+                  title: 16k IP Addresses
+                - const: 19
+                  title: 8k IP Addresses
+                - const: 20
+                  title: 4k IP Addresses
+                - const: 21
+                  title: 2k IP Addresses
+                - const: 22
+                  title: 1k IP Addresses
+                - const: 23
+                  title: 512 IP Addresses
+                - const: 24
+                  title: 256 IP Addresses
+            required:
+            - mask
+          - properties:
+              automatic:
+                const: false
+              cidr:
+                title: VNet CIDR Range
+                type: string
+                description: Enter a CIDR range to use for the virtual network
+                "$md.immutable": true
+                pattern: "^(?:10\\.(?:[0-9]|[0-9]{2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])|172\\.(?:1[6-9]|2[0-9]|3[0-1])|192\\.168)(?:\\.(?:[0-9]|[0-9]{2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){2}\\/([8-9]|1[0-9]|2[0-4])$"
+                message:
+                  pattern: Range must be from private networking space (10.X.X.X, 172.16-31.X.X, 192.168.X.X). Mask must be between 8 and 24
+            required:
+            - cidr
 connections:
   required:
-    - gcp_authentication
-    - gcp_global_network
+  - gcp_authentication
+  - gcp_global_network
   properties:
     gcp_authentication:
-      $ref: massdriver/gcp-service-account
+      "$ref": massdriver/gcp-service-account
     gcp_global_network:
-      $ref: massdriver/gcp-global-network
-
+      "$ref": massdriver/gcp-global-network
 artifacts:
   required:
-    - subnetwork
+  - subnetwork
   properties:
     subnetwork:
-      $ref: massdriver/gcp-subnetwork
-
+      "$ref": massdriver/gcp-subnetwork
 ui:
   ui:order:
-    - gcp_region
-    - automatic
-    - "*"
+  - gcp_region
+  - automatic
+  - "*"
   gcp_region:
     ui:field: supportedCloudLocationsDropdown
     cloudService: gcp
+steps:
+- path: src
+  provisioner: opentofu
+  config:
+    checkov:
+      enable: true
