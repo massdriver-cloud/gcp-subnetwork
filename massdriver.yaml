@@ -85,15 +85,15 @@ connections:
   - gcp_global_network
   properties:
     gcp_authentication:
-      "$ref": massdriver/gcp-service-account
+      "$ref": gcp-service-account
     gcp_global_network:
-      "$ref": massdriver/gcp-global-network
+      "$ref": gcp-global-network
 artifacts:
   required:
   - subnetwork
   properties:
     subnetwork:
-      "$ref": massdriver/gcp-subnetwork
+      "$ref": gcp-subnetwork
 ui:
   ui:order:
   - gcp_region
