@@ -7,7 +7,7 @@ locals {
 
 data "google_compute_network" "global_network" {
   count = var.network.automatic ? 1 : 0
-  name  = element(split("/", var.gcp_global_network.data.grn), 4)
+  name  = element(split("/", var.gcp_global_network.grn), 4)
 }
 
 data "google_compute_subnetwork" "subnetworks" {

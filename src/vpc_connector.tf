@@ -63,7 +63,7 @@ resource "google_vpc_access_connector" "shared" {
   min_throughput = 200
   max_throughput = 500
   machine_type   = "f1-micro"
-  network        = var.gcp_global_network.data.grn
+  network        = var.gcp_global_network.grn
 
   depends_on = [module.apis]
 }

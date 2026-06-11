@@ -17,13 +17,11 @@ variable "gcp_authentication" {
 }
 variable "gcp_global_network" {
   type = object({
-    data = object({
-      grn                        = string
-      private_service_connect_ip = string
-      private_services_access = object({
-        cidr = optional(string)
-        name = optional(string)
-      })
+    grn                        = string
+    private_service_connect_ip = string
+    private_services_access = object({
+      cidr = optional(string)
+      name = optional(string)
     })
     specs = object({
       gcp = optional(object({
